@@ -1,7 +1,7 @@
 <mat-card class="schedule-container">
   <mat-card-title>Расписание</mat-card-title>
   <mat-card-content>
-  
+
     <mat-card *ngIf="errorMessage" class="error-message">
       <mat-card-content>
         <p>{{ errorMessage }}</p>
@@ -15,20 +15,30 @@
             <div class="day-header">
               <strong>{{ day }}:</strong>
             </div>
-            
+
             <div class="time-range">
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Начало</mat-label>
-                <input matInput [(ngModel)]="(schedule[day] || { start: '', end: '' }).start" type="time">
+                <input matInput [(ngModel)]="(schedule[day] || { start: ''}).start" type="time">
               </mat-form-field>
 
               <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Конец</mat-label>
-                <input matInput [(ngModel)]="(schedule[day] || { start: '', end: '' }).end" type="time">
+                <input matInput [(ngModel)]="(schedule[day] || { end: '' }).end" type="time">
               </mat-form-field>
             </div>
-            
+
             <button mat-raised-button color="accent" (click)="updateSchedule(day)">Сохранить</button>
+
+            <div class="check-access">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Время проверки</mat-label>
+                <input matInput [(ngModel)]="checkTime[day]" type="time">
+              </mat-form-field>
+              <button mat-raised-button color="primary" (click)="checkAccess(day, checkTime[day])">Проверить доступ</button>
+              <p *ngIf="accessMessage[day]">{{ accessMessage[day] }}</p>
+            </div>
+
           </mat-card-content>
         </mat-card>
       </div>

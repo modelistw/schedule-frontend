@@ -19,6 +19,8 @@ export class ScheduleComponent implements OnInit {
   days: string[] = ['Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота', 'Воскресенье'];
   schedule: { [key: string]: { start: string, end: string } } = {};
   errorMessage: string = '';
+  accessMessage: { [key: string]: string } = {};
+  checkTime: { [key: string]: string } = {};
 
   constructor(
     private scheduleService: ScheduleService, 
@@ -48,6 +50,20 @@ export class ScheduleComponent implements OnInit {
       (error) => {
         console.error('Ошибка обновления расписания:', error);
         this.errorMessage = 'Не удалось обновить расписание. Проверьте авторизацию.';
+        this.ngOnInit()
+      }
+    );
+  }
+
+  checkAccess(day: string, time: string) {
+    this.scheduleService.checkAccess(day, time).subscribe(
+      (response) => {
+        this.accessMessage[day] = response.message;
+        console.log(`Доступ для ${day} в ${time}: ${response.message}`);
+      },
+      (error) => {
+        this.accessMessage[day] = 'Доступ запрещен';
+        console.error('Ошибка проверки доступа:', error);
       }
     );
   }

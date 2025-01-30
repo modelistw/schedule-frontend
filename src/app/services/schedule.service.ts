@@ -50,4 +50,10 @@ export class ScheduleService {
 
     return this.http.post(`${this.apiUrl}/schedule`, { day, start, end }, { headers });
   }
+  
+  checkAccess(day: string, time: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/check-access`, {
+      params: { day, time }
+    });
+  }
 }
