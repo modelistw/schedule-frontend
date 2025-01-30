@@ -1,0 +1,42 @@
+<mat-card class="schedule-container">
+  <mat-card-title>Расписание</mat-card-title>
+  <mat-card-content>
+  
+    <mat-card *ngIf="errorMessage" class="error-message">
+      <mat-card-content>
+        <p>{{ errorMessage }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <div *ngIf="schedule">
+      <div *ngFor="let day of days" class="day">
+        <mat-card class="day-card">
+          <mat-card-content>
+            <div class="day-header">
+              <strong>{{ day }}:</strong>
+            </div>
+            
+            <div class="time-range">
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Начало</mat-label>
+                <input matInput [(ngModel)]="(schedule[day] || { start: '', end: '' }).start" type="time">
+              </mat-form-field>
+
+              <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Конец</mat-label>
+                <input matInput [(ngModel)]="(schedule[day] || { start: '', end: '' }).end" type="time">
+              </mat-form-field>
+            </div>
+            
+            <button mat-raised-button color="accent" (click)="updateSchedule(day)">Сохранить</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+
+  </mat-card-content>
+
+  <mat-card-actions class="actions">
+    <button mat-raised-button color="primary" (click)="gotoLogin()">Login</button>
+  </mat-card-actions>
+</mat-card>

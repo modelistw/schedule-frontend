@@ -1,0 +1,21 @@
+<div class="login-container">
+    <h2>Авторизация</h2>
+  
+    <form (ngSubmit)="login()" #loginForm="ngForm">
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Email</mat-label>
+        <input matInput id="email" name="email" [(ngModel)]="email" type="email" required placeholder="Введите email" />
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Пароль</mat-label>
+        <input matInput id="password" name="password" [(ngModel)]="password" type="password" required placeholder="Введите пароль" />
+      </mat-form-field>
+  
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Войти</button>
+    </form>
+  
+    <div class="error-message" *ngIf="errorMessage">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </div>
